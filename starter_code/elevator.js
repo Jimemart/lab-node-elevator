@@ -16,18 +16,17 @@ class Elevator {
 
     this.floorUp();
     console.log(`The elevator is at ${this.floor} going ${this.direction}`);
-    var that = this;
-    this.waitingList.forEach(function(value,index){
-      if(that.floor === value.originFloor){
-        that._passengersEnter(value,index);
+    this.waitingList.forEach((value,index) =>{
+      if(this.floor === value.originFloor){
+        this._passengersEnter(value,index);
         console.log(`${value.name} has entered the elevator`);
       }
     });
     console.log(this.passengers);
-    this.passengers.forEach(function(value,index){
-      if(that.floor == value.destinationFloor){
-        that._passengersLeave(value,index);
-        console.log(`${value.name} has left the elevator`)
+    this.passengers.forEach((value,index)=>{
+      if(this.floor == value.destinationFloor){
+        this._passengersLeave(value,index);
+        console.log(`${value.name} has left the elevator`);
       }
     });
   }
