@@ -10,11 +10,12 @@ class Elevator {
   }
 
   start() {this.interval = setInterval(()=>this.update(),1000)}
-  stop() {if(this.requests.length)setTimeout(()=>clearInterval(this.interval),3000)}
+  stop() {if(this.requests.length == 0)clearInterval(this.interval)}
 
   update() {
 
     this.floorUp();
+    this.floorDown();
     console.log(`The elevator is at ${this.floor} going ${this.direction}`);
     this.waitingList.forEach((value,index) =>{
       if(this.floor === value.originFloor){
@@ -29,6 +30,7 @@ class Elevator {
         console.log(`${value.name} has left the elevator`);
       }
     });
+    this.stop();
   }
 
   _passengersEnter(value,index) {
@@ -42,8 +44,21 @@ class Elevator {
   }
 
 
-  floorUp() {if(this.floor < this.MAXFLOOR) this.floor +=1;}
-  floorDown() {if(this.floor > 0)this.floor -=1;}
+  floorUp() {
+    if(this.floor < this.MAXFLOOR && this.direction ==="up") {
+      this.floor +=1;
+    }
+    else{
+      this.direction = "down";
+    }
+  }
+  floorDown() {if(this.floor > 0 && this.direction ==="down"){
+    this.floor -=1;
+  }
+  else{
+    this.direction = "up";
+  }
+}
   call(person) {
     this.requests.push(person.originFloor);
     this.waitingList.push(person);
